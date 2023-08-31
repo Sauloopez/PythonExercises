@@ -12,7 +12,7 @@ for i in poblacion:
         if poblacion.index(i)+1 < len(poblacion):
             print("(" + str(año[poblacion.index(i)]) + "-" + str(año[poblacion.index(i)+1]) + ") k = " + str(k))
 
-print("")
+print('')
 print("Predicciones población:")
     
 # vp = variable poblacion, va = variable año, dis = distancia en años

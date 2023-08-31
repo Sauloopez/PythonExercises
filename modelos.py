@@ -23,11 +23,11 @@ class Data:
             self.data.setdefault(f,int(input(f'cant en año {f}: ')))
         js.dump(self.data, file)
     def model(y):
-        k1=mt.log(7821/1650)/y
+        k1=Data.calculate_k_prd()
         k2=Data.calculate_k()
-        pob=1650 * mt.exp(k1*y)
+        pob=7821 * mt.exp(k1*y)
         print(pob, k1)
-        pob=1650 * mt.exp(k2*y)
+        pob=7821 * mt.exp(k2*y)
         print(pob, k2)
 
     def calculate_k():
@@ -37,18 +37,29 @@ class Data:
         for y in data:
             years.append(int(y))
         
-        # Transforma los datos usando el logaritmo natural
         log_values = np.array([mt.log(int(data[str(year)]), mt.e) for year in years])
 
-        # Ajusta una regresión lineal a los datos transformados
         slope, intercept = np.polyfit(years, log_values, 1)
 
-        # La pendiente (slope) es constante k
         return slope
+    
+    def calculate_k_prd():
+        with open("data.json", "r") as file:
+            data = js.load(file)
+        years=[]
+        poblacion=[]
+        for y in data:
+            poblacion.append(int(data[y]))
+            years.append(int(y))
+        for i in poblacion:
+            if len(poblacion) != poblacion.index(i) and poblacion.index(i) > 0:
+                k = (mt.log(i / poblacion[poblacion.index(i)-1])) / (years[poblacion.index(i)]-years[poblacion.index(i)-1])
+                     
+        return k
 
         
 
 #years=Data()
 #years.input_content()
-Data.model(123)
+Data.model(3)
 
