@@ -43,7 +43,7 @@ class Data:
         # Ajusta una regresión lineal a los datos transformados
         slope, intercept = np.polyfit(years, log_values, 1)
 
-        # La pendiente (slope) es tu constante k
+        # La pendiente (slope) es constante k
         return slope
 
         
